@@ -1,0 +1,7 @@
+<fd-list *ngIf="(products$ | async).length > 0"> 
+    <li fd-list-item *ngFor="let product of (products$ | async)">{{product.name}}
+        <fd-list-action>
+           <button fd-button [options]="'light'" [glyph]="'edit'" (click)="selectProduct(product)"></button>
+        </fd-list-action>
+    </li>
+</fd-list>

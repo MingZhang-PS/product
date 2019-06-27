@@ -1,0 +1,26 @@
+<div class="fd-panel fd-panel__body">
+  <div fd-form-set>
+    <div fd-form-item>
+      <label fd-form-label for="nameInput">Product Name:*</label>
+      <input #name fd-form-control type="text" id="nameInput" required aria-required="true" />
+    </div>
+  </div>
+  <div fd-form-set>
+    <div fd-form-item>
+      <label fd-form-label for="descriptionInput">Product Description:</label>
+      <input #description fd-form-control type="text" id="descriptionInput" />
+    </div>
+  </div>
+  <div fd-form-set>
+    <div fd-form-item>
+      <label fd-form-label for="imageUrlInput">Product Image URL:</label>
+      <input #imageUrl fd-form-control type="text" id="imageUrlInput" />
+    </div>
+  </div>
+
+  <div fd-form-set>
+    <div fd-form-item>
+      <button fd-button (click)="addProduct(name.value,description.value,imageUrl.value)">Create</button>
+    </div>
+  </div>
+</div>

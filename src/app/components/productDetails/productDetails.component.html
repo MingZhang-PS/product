@@ -1,0 +1,33 @@
+<div class="fd-panel fd-panel__body" *ngIf="(product$ | async) as product">
+    <div fd-form-set>
+        <div fd-form-item>
+            <label fd-form-label for="nameInput">Product Name:*</label>
+            <input #name fd-form-control type="text" id="nameInput"  required
+                aria-required="true" value="{{product.name}}" />
+        </div>
+    </div>
+    <div fd-form-set>
+        <div fd-form-item>
+            <label fd-form-label for="descriptionInput">Product Description:</label>
+            <input #description fd-form-control type="text" id="descriptionInput"
+                value="{{product.description}}" />
+        </div>
+    </div>
+    <div fd-form-set>
+        <div fd-form-item>
+            <label fd-form-label for="imageUrlInput">Product Image URL:</label>
+            <input #imageUrl fd-form-control type="text" id="imageUrlInput" value="{{product.imageUrl}}" />
+        </div>
+    </div>
+    <div fd-form-set>
+        <div fd-form-item>
+            <fd-image style="margin-right: 10px;" [size]="'l'" [circle]="true" [photo]="product.imageUrl">
+            </fd-image>
+        </div>
+    </div>
+    <div fd-form-set>
+        <div fd-form-item>
+            <button fd-button (click)="updateProduct(product.id, name.value, description.value, imageUrl.value)">Update</button>
+        </div>
+    </div>
+</div>
