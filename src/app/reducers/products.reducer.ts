@@ -1,7 +1,7 @@
 import { createEntityAdapter, EntityAdapter } from '@ngrx/entity';
-import { Product } from '../../models/Product';
-import { ProductsActionTypes, ProductsActions } from './products.action';
-import { ProductsState } from './products.state';
+import { Product } from '../models/Product';
+import { ProductsActionTypes, ProductsActions } from '../actions/products.action';
+import { ProductsState } from '../states/products.state';
 
 export const adapter: EntityAdapter<Product> = createEntityAdapter<Product>();
 
@@ -21,7 +21,7 @@ function failWithMsg(message: string): never {
 
 export function reducer(state: ProductsState = initialState, action: ProductsActions): ProductsState {
     switch (action.type) {
-        case ProductsActionTypes.LoadProducts: {
+        case ProductsActionTypes.LoadProductsSuccess: {
             const products: Product[] = action.payload;
             const productsNum = (products && products.length > 0) ? products.length : 0;
             const newState = adapter.addMany(products, state);
@@ -32,16 +32,13 @@ export function reducer(state: ProductsState = initialState, action: ProductsAct
             });
         }
 
-        case ProductsActionTypes.AddProduct: {
-            if (action.payload.id === -1) {
-                action.payload.id = Math.max(...state.ids as number[]) + 1;
-            }
+        case ProductsActionTypes.AddProductSuccess: {
             const newState = adapter.addOne(action.payload, state);
             return Object.assign(newState, {
                 totalObjects: state.totalObjects + 1,
                 actualPage: Math.ceil((state.totalObjects + 1) / PAGESIZE)
             });
-        }
+         }
 
         case ProductsActionTypes.UpdateProduct: {
             const newState = adapter.upsertOne(action.payload, state);
@@ -71,6 +68,7 @@ export function reducer(state: ProductsState = initialState, action: ProductsAct
             };
         }
 
+        // case ProductsActionTypes.AddProduct:
         default: {
             return state;
         }
@@ -78,6 +76,7 @@ export function reducer(state: ProductsState = initialState, action: ProductsAct
 }
 
 export const {
-    selectAll: selectAllProducts
+    selectAll: selectAllProducts,
+    selectEntities: selectProductEntities
 } = adapter.getSelectors();
 

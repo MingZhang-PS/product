@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { ProductsState } from 'src/app/states/products/products.state';
-import { AddProduct } from 'src/app/states/products/products.action';
+import { ProductsState } from 'src/app/states/products.state';
+import { AddProduct } from 'src/app/actions/products.action';
 
 @Component({
   selector: 'app-productCreate',
@@ -17,6 +17,6 @@ export class ProductCreateComponent implements OnInit {
   }
 
   addProduct(name: string, description: string, imageUrl: string) {
-    this.store.dispatch(new AddProduct({'id':-1, 'name': name, 'description': description, 'imageUrl': imageUrl}));
+    this.store.dispatch(new AddProduct({'id': undefined, 'name': name, 'description': description, 'imageUrl': imageUrl}));
   }
 }

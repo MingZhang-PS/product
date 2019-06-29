@@ -3,9 +3,9 @@ import { Store, select } from '@ngrx/store';
 // import { switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Product } from 'src/app/models/Product';
-import * as ProductsSelectors from 'src/app/states/products/products.selector';
-import { ProductsState } from 'src/app/states/products/Products.state';
-import { UpdateProduct } from 'src/app/states/products/products.action';
+import * as ProductsSelectors from 'src/app/selectors/products.selector';
+import { ProductsState } from 'src/app/states/products.state';
+import { UpdateProduct } from 'src/app/actions/products.action';
 
 
 @Component({
@@ -19,9 +19,10 @@ export class ProductDetailsComponent implements OnInit {
   constructor(private store: Store<ProductsState>) { }
 
   ngOnInit() {
-      this.store.select(ProductsSelectors.selectActiveProductId).subscribe(
-       id => this.product$ = this.store.select(ProductsSelectors.selectProductById, {id})
-     );
+     // this.store.select(ProductsSelectors.selectActiveProductId).subscribe(
+     //  id => this.product$ = this.store.select(ProductsSelectors.selectProductById, {id})
+     // );
+     this.product$ = this.store.select(ProductsSelectors.selectActiveProduct);
   }
 
   updateProduct(id: number, name: string, description: string, imageUrl: string) {

@@ -2,9 +2,9 @@ import { Component, OnInit, inject } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Product } from 'src/app/models/Product';
-import { SelectProduct } from './../../states/products/products.action';
-import { ProductsState } from '../../states/products/products.state';
-import * as ProductsSelectors from 'src/app/states/products/products.selector';
+import { SelectProduct, LoadProducts } from '../../actions/products.action';
+import { ProductsState } from '../../states/products.state';
+import * as ProductsSelectors from 'src/app/selectors/products.selector';
 import { ProductsService } from 'src/app/services/products.service';
 
 
@@ -22,7 +22,8 @@ export class ProductsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.productsService.loadProducts();
+    // this.productsService.loadProducts();
+    this.store.dispatch(new LoadProducts());
   }
 
   selectProduct(product: Product) {
